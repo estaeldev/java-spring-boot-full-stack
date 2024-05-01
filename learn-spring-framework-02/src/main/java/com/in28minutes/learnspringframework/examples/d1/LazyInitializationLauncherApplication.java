@@ -23,7 +23,7 @@ class ClassB {
     }
 
     public void doSomething() {
-        System.out.println("Do Something");
+        System.out.println("Do Something -> " + this.classA);
     }
 
 
