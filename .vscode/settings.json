@@ -3,5 +3,6 @@
         "learnspringboot",
         "learnspringframework",
         "springboot"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }
