@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS course (
     id INT NOT NULL PRIMARY KEY,
-    course_name VARCHAR NOT NULL,
+    name VARCHAR NOT NULL,
     author VARCHAR NOT NULL
 );
