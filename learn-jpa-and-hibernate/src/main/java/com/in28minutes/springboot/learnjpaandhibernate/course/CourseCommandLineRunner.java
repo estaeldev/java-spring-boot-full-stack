@@ -3,18 +3,15 @@ package com.in28minutes.springboot.learnjpaandhibernate.course;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.in28minutes.springboot.learnjpaandhibernate.course.jdbc.CourseJdbcRepository;
-import com.in28minutes.springboot.learnjpaandhibernate.course.jpa.CourseJpaRepository;
+import com.in28minutes.springboot.learnjpaandhibernate.course.springdatajpa.CourseSpringDataJpaRepository;
 
 @Component
 public class CourseCommandLineRunner implements CommandLineRunner {
 
-    private final CourseJdbcRepository jdbcRepository;
-    private final CourseJpaRepository jpaRepository;
+    private final CourseSpringDataJpaRepository springDataJpaRepository;
 
-    public CourseCommandLineRunner(CourseJdbcRepository jdbcRepository, CourseJpaRepository jpaRepository) {
-        this.jdbcRepository = jdbcRepository;
-        this.jpaRepository = jpaRepository;
+    public CourseCommandLineRunner(CourseSpringDataJpaRepository springDataJpaRepository) {
+        this.springDataJpaRepository = springDataJpaRepository;
     }
     
     @Override
@@ -25,14 +22,12 @@ public class CourseCommandLineRunner implements CommandLineRunner {
         Course course2 = new Course(2, "Learn Azure", author);
         Course course3 = new Course(3, "Learn DevOps", author);
 
-        this.jpaRepository.insert(course1, course2, course3);  
 
-        this.jdbcRepository.deleteByCourse(course1);
+        this.springDataJpaRepository.save(course1);
+        this.springDataJpaRepository.save(course2);
+        this.springDataJpaRepository.save(course3);
 
-        System.out.println(this.jdbcRepository.findById(course2.getId()));
-
-        
-        
+        this.springDataJpaRepository.delete(course2);
 
     }
     
