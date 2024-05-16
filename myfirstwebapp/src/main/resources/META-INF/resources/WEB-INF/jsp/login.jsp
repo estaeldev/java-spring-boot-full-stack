@@ -10,7 +10,7 @@
     <body>
 
         <div class="login">
-            <h4>Welcome to the login page! <strong>${name}</strong></h4>
+            <h4>Welcome to the login page!</h4>
             
             <form method="post">
                 Name: 

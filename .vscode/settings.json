@@ -1,6 +1,7 @@
 {
     "cSpell.words": [
         "estael",
+        "jakarta",
         "jdbc",
         "Jdbc",
         "learnjpaandhibernate",
@@ -8,7 +9,8 @@
         "learnspringframework",
         "myfirstwebapp",
         "Myfirstwebapp",
-        "springboot"
+        "springboot",
+        "taglib"
     ],
     "java.configuration.updateBuildConfiguration": "interactive"
 }

@@ -8,7 +8,9 @@
     </head>
 
     <body>
-        Welcome Page - ${name}
+        <h2>Welcome Page - ${name}</h2>
+        <hr>
+        <div> <a href="list-todos">Manage</a> your Todos</div>
     </body>
 
 </html>
