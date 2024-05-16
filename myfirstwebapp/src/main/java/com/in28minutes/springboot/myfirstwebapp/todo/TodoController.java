@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.in28minutes.springboot.myfirstwebapp.service.TodoService;
@@ -23,6 +24,18 @@ public class TodoController {
         List<Todo> todos = this.todoService.getTodos();
         model.addAttribute("todos", todos);
         return "listTodos";
+    }
+
+    @GetMapping("/add-todo")
+    public String showNewTodoPage() {
+        
+        return "todo";
+    }
+
+    @PostMapping("/add-todo")
+    public String addTodoPage() {
+        
+        return "redirect:list-todos";
     }
 
 

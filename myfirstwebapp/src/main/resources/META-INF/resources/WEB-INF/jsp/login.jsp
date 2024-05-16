@@ -9,7 +9,7 @@
 
     <body>
 
-        <div class="login">
+        <div class="container">
             <h4>Welcome to the login page!</h4>
             
             <form method="post">
@@ -23,29 +23,6 @@
 
         </div>
 
-
-
     </body>
-
-    <style>
-        html, body {
-            padding: 0;
-            margin: 0;
-            box-sizing: border-box;
-        }
-
-        .login {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        .login strong {
-            color: red;
-        }
-
-    </style>
 
 </html>

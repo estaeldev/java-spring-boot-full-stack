@@ -6,37 +6,53 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="webjars/bootstrap/5.3.3/css/bootstrap.min.css" />
         <title>List Todos</title>
     </head>
 
     <body>  
 
-        <h2>Welcome ${name}</h2>
-        <hr>
-        <h2>Your Todos</h2>
+        <div class="container">
 
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>DESCRIPTION</th>
-                    <th>TARGET DATE</th>
-                    <th>DANE</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach items="${todos}" var="todo">
+            <h2>Welcome ${name}</h2>
+            <hr>
+            <h2>Your Todos</h2>
+    
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>${todo.id}</td>
-                        <td>${todo.description}</td>
-                        <td>${todo.targetDate}</td>
-                        <td>${todo.done}</td>
+                        <th>ID</th>
+                        <th>DESCRIPTION</th>
+                        <th>TARGET DATE</th>
+                        <th>DANE</th>
                     </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <c:forEach items="${todos}" var="todo">
+                        <tr>
+                            <td>${todo.id}</td>
+                            <td>${todo.description}</td>
+                            <td>${todo.targetDate}</td>
+                            <td>${todo.done}</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+
+            <a href="add-todo" class="btn btn-success">Add Todo</a>
+
+        </div>
+
 
     </body>
+
+    <script src="webjars/bootstrap/5.3.3/js/bootstrap.min.js">
+
+    </script>
+
+    <script src="werbjars/jquery/3.6.0/jquery.min.js">
+
+    </script>
 
 
 </html>
