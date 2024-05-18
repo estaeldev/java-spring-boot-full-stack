@@ -1,5 +1,6 @@
 package com.in28minutes.springboot.myfirstwebapp.todo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -27,14 +28,18 @@ public class TodoController {
     }
 
     @GetMapping("/add-todo")
-    public String showNewTodoPage() {
-        
+    public String showNewTodoPage(ModelMap model) {
+        String username = (String) model.get("name");
+        Todo todo = new Todo(0, username, "", LocalDate.now(), Boolean.FALSE);
+        model.put("todo", todo);
         return "todo";
     }
 
     @PostMapping("/add-todo")
-    public String addTodoPage() {
-        
+    public String addTodoPage(Todo todo, ModelMap model) {
+        String username = (String) model.get("name");
+        Todo todoSaved = new Todo(0, username, todo.getDescription(), LocalDate.now().plusYears(1), Boolean.FALSE);
+        this.todoService.addTodo(todoSaved);
         return "redirect:list-todos";
     }
 
