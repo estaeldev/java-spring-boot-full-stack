@@ -16,7 +16,7 @@ public class TodoService {
 
     static {
         String username = "in28minutes";
-        todos.add(new Todo(++todoCount, username, "Learn AWS", 
+        todos.add(new Todo(++todoCount, username, "Get AWS Certified", 
             LocalDate.now().plusYears(1), Boolean.FALSE));
 
         todos.add(new Todo(++todoCount, username, "Learn DevOps", 
@@ -30,10 +30,22 @@ public class TodoService {
         return todos;
     }
 
+    public Todo findById(int id) {
+        return todos.stream().filter(todo -> todo.getId() == id).findFirst().get();
+    }
+
     public void addTodo(Todo todo) {
         todo.setId(++todoCount);
         todos.add(todo);
     }
+
+    public void deleteById(int id) {
+        todos.removeIf(todo -> todo.getId() == id);
+    }
     
+    public void updateTodo(Todo todo) {
+        deleteById(todo.getId());
+        todos.add(todo);
+    }
 
 }
