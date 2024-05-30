@@ -1,19 +1,9 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<%@ include file="common/header.jspf" %>
+<%@ include file="common/navigation.jspf" %>
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Welcome Page</title>
-    </head>
+<div class="container">
+    <h2>Welcome Page - ${name}</h2>
+    <div> <a href="list-todos">Manage</a> your Todos</div>
+</div>
 
-    <body>
-
-        <div class="container">
-            <h2>Welcome Page - ${name}</h2>
-            <div> <a href="list-todos">Manage</a> your Todos</div>
-        </div>
-
-    </body>
-
-</html>
+<%@ include file="common/footer.jspf" %>

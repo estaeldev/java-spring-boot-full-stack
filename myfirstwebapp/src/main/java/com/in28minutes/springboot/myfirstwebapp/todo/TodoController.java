@@ -2,6 +2,7 @@ package com.in28minutes.springboot.myfirstwebapp.todo;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -45,6 +46,10 @@ public class TodoController {
             return "todo";
         }
 
+        if(Objects.isNull(todo.getDone())) {
+            todo.setDone(Boolean.FALSE);
+        }
+
         String username = (String) model.get("name");
         Todo todoSaved = new Todo(0, username, todo.getDescription(), todo.getTargetDate(), todo.getDone());
         this.todoService.addTodo(todoSaved);
@@ -66,6 +71,10 @@ public class TodoController {
 
     @PostMapping("/update-todo")
     public String addUpdateTodo(@Valid Todo todo, ModelMap model) {
+
+        if(Objects.isNull(todo.getDone())) {
+            todo.setDone(Boolean.FALSE);
+        }
 
         String username = (String) model.get("name");
         todo.setUsername(username);
