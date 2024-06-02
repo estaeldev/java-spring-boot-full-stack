@@ -15,7 +15,7 @@ public class TodoService {
     private static int todoCount = 0;
 
     static {
-        String username = "in28minutes";
+        String username = "estael";
         todos.add(new Todo(++todoCount, username, "Get AWS Certified", 
             LocalDate.now().plusYears(1), Boolean.FALSE));
 
@@ -26,8 +26,8 @@ public class TodoService {
             LocalDate.now().plusYears(3), Boolean.FALSE));
     }
 
-    public List<Todo> getTodos() {
-        return todos;
+    public List<Todo> getTodos(String username) {
+        return todos.stream().filter(todo -> todo.getUsername().equalsIgnoreCase(username)).toList();
     }
 
     public Todo findById(int id) {

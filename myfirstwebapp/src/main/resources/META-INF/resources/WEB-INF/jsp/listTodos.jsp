@@ -3,8 +3,6 @@
 
 <div class="container">
 
-    <h2>Welcome ${name}</h2>
-    <hr>
     <h2>Your Todos</h2>
 
     <table class="table">
