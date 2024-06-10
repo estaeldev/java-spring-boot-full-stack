@@ -12,7 +12,9 @@
         "myfirstwebapp",
         "Myfirstwebapp",
         "springboot",
-        "taglib"
+        "taglib",
+        "usecase",
+        "usercaseimpl"
     ],
     "java.configuration.updateBuildConfiguration": "interactive"
 }

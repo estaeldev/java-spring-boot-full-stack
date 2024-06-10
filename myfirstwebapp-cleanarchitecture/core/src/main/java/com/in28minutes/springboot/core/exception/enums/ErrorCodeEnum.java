@@ -2,8 +2,17 @@ package com.in28minutes.springboot.core.exception.enums;
 
 public enum ErrorCodeEnum {
 
-    ON0001("", "");
+    // Error Todo Exception
+    TO0001("Error Create Todo", "TO-0001"),
+    TO0002("Error Delete Todo", "TO-0002"),
+    TO0003("Error Delete By Id Todo", "TO-0003"),
+    TO0004("Error Find Todo", "TO-0004"),
+    TO0005("Error Find By Id Todo", "TO-0005"),
+    TO0006("Error Update Todo", "TO-0006"),
     
+    // Error User Exception
+    US0001("Error Create User", "US-0001");
+
     private final String message;
     private final String code;
 
