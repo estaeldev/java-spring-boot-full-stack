@@ -7,34 +7,35 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.in28minutes.springboot.core.domain.User;
+import com.in28minutes.springboot.core.domain.Todo;
 import com.in28minutes.springboot.infrastructure.dto.BaseResponseDto;
-import com.in28minutes.springboot.infrastructure.dto.UserRequestDto;
-import com.in28minutes.springboot.infrastructure.mapper.UserMapper;
-import com.in28minutes.springboot.usecase.CreateUser;
+import com.in28minutes.springboot.infrastructure.dto.TodoRequestDto;
+import com.in28minutes.springboot.infrastructure.mapper.TodoMapper;
+import com.in28minutes.springboot.usecase.CreateTodo;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/todo")
 @RequiredArgsConstructor
-public class UserController {
+public class TodoController {
 
-    private final CreateUser createUser;
-    private final UserMapper userMapper;
-    
+    private final CreateTodo createTodo;
+    private final TodoMapper todoMapper;
+
     @PostMapping
-    public ResponseEntity<BaseResponseDto<?>> create(@Valid @RequestBody UserRequestDto userRequestDto) {
-        User user = this.userMapper.user(userRequestDto);
-        this.createUser.create(user);
-
+    public ResponseEntity<BaseResponseDto<?>> create(@Valid @RequestBody TodoRequestDto todoDto) {
+        
+        Todo todo = this.todoMapper.todo(todoDto);
+        this.createTodo.create(todo);
+        
         return ResponseEntity.status(HttpStatus.CREATED).body(BaseResponseDto.builder()
-            .message("Usuário criado com sucesso.")
+            .message("Todo criado com sucesso")
             .code(HttpStatus.CREATED.toString())
             .build()
         );
     }
 
-
+    
 }

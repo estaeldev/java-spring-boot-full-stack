@@ -19,13 +19,15 @@ public class FindUserImpl implements FindUser  {
 
 
     @Override
-    public void findById(UUID id) {
+    public User findById(UUID id) {
 
-        User findUser = this.findUserGateway.findById(id);
+        User user = this.findUserGateway.findById(id);
 
-        if(Objects.isNull(findUser)) {
+        if(Objects.isNull(user)) {
             throw new NotFoundException(ErrorCodeEnum.US0003.getMessage(), ErrorCodeEnum.US0003.getCode());
         }
+        
+        return user;
 
     }
     
