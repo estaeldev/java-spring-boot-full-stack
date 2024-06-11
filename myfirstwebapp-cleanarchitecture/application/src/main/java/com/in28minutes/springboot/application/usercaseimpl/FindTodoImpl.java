@@ -18,16 +18,6 @@ public class FindTodoImpl implements FindTodo {
     }
 
     @Override
-    public void find(Todo todo) {
-        Todo findTodo = this.findTodoGateway.find(todo);
-
-        if(Objects.isNull(findTodo)) {
-            throw new NotFoundException(ErrorCodeEnum.TO0004.getMessage(), ErrorCodeEnum.TO0004.getCode());
-        }
-
-    }
-
-    @Override
     public void findById(UUID id) {
 
         Todo findTodo = this.findTodoGateway.findById(id);

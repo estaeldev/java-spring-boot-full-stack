@@ -11,7 +11,9 @@ public enum ErrorCodeEnum {
     TO0006("Error Update Todo", "TO-0006"),
     
     // Error User Exception
-    US0001("Error Create User", "US-0001");
+    US0001("Error Create User", "US-0001"),
+    US0002("Error Find User", "US-0002"),
+    US0003("Error Find By Id User", "US-0003");
 
     private final String message;
     private final String code;

@@ -2,7 +2,7 @@ package com.in28minutes.springboot.usecase;
 
 import java.util.UUID;
 
-public interface FindTodo {
+public interface FindUser {
     
     void findById(UUID id);
 
