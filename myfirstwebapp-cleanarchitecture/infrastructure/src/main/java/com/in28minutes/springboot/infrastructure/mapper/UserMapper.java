@@ -3,6 +3,7 @@ package com.in28minutes.springboot.infrastructure.mapper;
 import org.springframework.stereotype.Component;
 
 import com.in28minutes.springboot.core.domain.User;
+import com.in28minutes.springboot.infrastructure.dto.UserRequestDto;
 import com.in28minutes.springboot.infrastructure.entity.UserEntity;
 
 @Component
@@ -11,7 +12,7 @@ public class UserMapper {
     public UserEntity userEntity(User user) {
 
         return new UserEntity(
-            user.getId(), 
+            user.getId(),
             user.getUserTypeEnum(), 
             user.getLogin(), 
             user.getPassword());
@@ -21,9 +22,18 @@ public class UserMapper {
         
         return new User(
             userEntity.getId(), 
-            userEntity.getUserTypeEnum(), 
+            userEntity.getUserTypeEnum(),
             userEntity.getLogin(), 
             userEntity.getPassword());
     }
-    
+
+    public User user(UserRequestDto userDto) {
+        
+        return new User(
+            userDto.getId(), 
+            userDto.getType(), 
+            userDto.getLogin(), 
+            userDto.getPassword());
+    }
+
 }

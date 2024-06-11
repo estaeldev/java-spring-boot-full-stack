@@ -13,7 +13,8 @@ public enum ErrorCodeEnum {
     // Error User Exception
     US0001("Error Create User", "US-0001"),
     US0002("Error Find User", "US-0002"),
-    US0003("Error Find By Id User", "US-0003");
+    US0003("Error Find By Id User", "US-0003"),
+    US0004("Error Create User Exist By Id", "US-0004");
 
     private final String message;
     private final String code;
