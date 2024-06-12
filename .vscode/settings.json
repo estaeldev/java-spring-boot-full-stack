@@ -1,8 +1,11 @@
 {
     "cSpell.words": [
         "atleast",
+        "countid",
+        "COUNTID",
         "csrf",
         "estael",
+        "helloworld",
         "jakarta",
         "jdbc",
         "Jdbc",
@@ -12,10 +15,12 @@
         "learnspringframework",
         "myfirstwebapp",
         "Myfirstwebapp",
+        "socialmediaapplication",
         "springboot",
         "taglib",
         "usecase",
-        "usercaseimpl"
+        "usercaseimpl",
+        "webservices"
     ],
     "java.configuration.updateBuildConfiguration": "interactive"
 }
