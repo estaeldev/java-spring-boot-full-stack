@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,14 +36,21 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> findById(@PathVariable Integer id) {
+    public ResponseEntity<EntityModel<User>> findById(@PathVariable Integer id) {
         User user = this.userDaoService.findById(id);
 
         if(Objects.isNull(user)) {
             throw new UserNotFoundException("User Not Found; id:"+id);
         }
+
+        EntityModel<User> entityModelUser = EntityModel.of(user);
+        WebMvcLinkBuilder findAllLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).findAll());
+        WebMvcLinkBuilder deleteLink = WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder.methodOn(this.getClass()).delete(id));
+
+        entityModelUser.add(findAllLink.withRel("all-users"));
+        entityModelUser.add(deleteLink.withRel("delete-user"));
         
-        return ResponseEntity.status(HttpStatus.OK).body(user);
+        return ResponseEntity.status(HttpStatus.OK).body(entityModelUser);
     }
     
     @PostMapping
