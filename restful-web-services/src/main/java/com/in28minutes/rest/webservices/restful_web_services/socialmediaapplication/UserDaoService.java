@@ -41,7 +41,7 @@ public class UserDaoService {
         return null;
     }
 
-    public void delete(Integer id) {
+    public void deleteById(Integer id) {
         User user = findById(id);
 
         if(Objects.nonNull(user)) {
