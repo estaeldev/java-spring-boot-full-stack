@@ -3,6 +3,7 @@ package com.in28minutes.rest.webservices.restful_web_services.socialmediaapplica
 import java.net.URI;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -24,9 +25,11 @@ import jakarta.validation.Valid;
 public class UserController {
 
     private final UserDaoService userDaoService;
+    private final PostRepository postRepository;
 
-    public UserController(UserDaoService userDaoService) {
+    public UserController(UserDaoService userDaoService, PostRepository postRepository) {
         this.userDaoService = userDaoService;
+        this.postRepository = postRepository;
     }
 
     @GetMapping
@@ -66,6 +69,49 @@ public class UserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         this.userDaoService.deleteById(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<Post>> findAllPostsForUser(@PathVariable Integer id) {
+
+        User user = this.userDaoService.findById(id);
+
+        if(Objects.nonNull(user)) {
+            return ResponseEntity.status(HttpStatus.OK).body(user.getPosts());
+        }
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+
+    @PostMapping("/{id}/posts")
+    public ResponseEntity<Post> savePost(@PathVariable int id, @Valid @RequestBody Post post) {
+        
+        User user = this.userDaoService.findById(id);
+
+        if(Objects.nonNull(user)) {
+            post.setUser(user);
+            this.postRepository.save(post);
+            return ResponseEntity.status(HttpStatus.CREATED).body(post);
+        }
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+    }
+
+    @GetMapping("/{userId}/posts/{postId}")
+    public ResponseEntity<Post> findByIdPost(@PathVariable int userId, @PathVariable int postId) {
+        
+        User user = this.userDaoService.findById(userId);
+
+        if(Objects.nonNull(user)) {
+            Optional<Post> postOpt = this.postRepository.findById(postId);
+
+            if(postOpt.isPresent() && user.getPosts().stream().anyMatch(post -> post.getId().equals(postOpt.get().getId()))) {
+                return ResponseEntity.status(HttpStatus.OK).body(postOpt.get());
+            }
+
+        }
+
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
     
