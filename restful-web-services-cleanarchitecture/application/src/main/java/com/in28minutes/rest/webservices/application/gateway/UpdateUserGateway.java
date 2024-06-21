@@ -1,14 +1,13 @@
 package com.in28minutes.rest.webservices.application.gateway;
 
-import java.util.List;
 import java.util.UUID;
 
 import com.in28minutes.rest.webservices.core.domain.User;
 
-public interface FindUserGateway {
+public interface UpdateUserGateway {
 
-    User findById(UUID id);
+    User update(User user);
 
-    List<User> findAll();
+    User updateById(UUID id, User user);
     
 }

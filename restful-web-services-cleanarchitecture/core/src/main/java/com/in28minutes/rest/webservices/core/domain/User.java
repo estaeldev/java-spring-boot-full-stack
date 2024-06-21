@@ -12,16 +12,16 @@ public class User {
     private String name;
     private LocalDate birthDate;
     private UserType userType;
-    private List<UUID> postsId;
+    private List<Post> posts;
 
     public User() {}
 
-    public User(UUID id, String name, LocalDate birthDate, UserType userType, List<UUID> postsId) {
+    public User(UUID id, String name, LocalDate birthDate, UserType userType, List<Post> posts) {
         this.id = id;
         this.name = name;
         this.birthDate = birthDate;
         this.userType = userType;
-        this.postsId = postsId;
+        this.posts = posts;
     }
 
     public UUID getId() {
@@ -48,12 +48,12 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public List<UUID> getPostsId() {
-        return postsId;
+    public List<Post> getPosts() {
+        return posts;
     }
 
-    public void setPostsId(List<UUID> postsId) {
-        this.postsId = postsId;
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     public UserType getUserType() {

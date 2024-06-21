@@ -6,14 +6,12 @@ public class Post {
     
     private UUID id;
     private String description;
-    private UUID userId;
 
     public Post() {}
 
-    public Post(UUID id, String description, UUID userId) {
+    public Post(UUID id, String description) {
         this.id = id;
         this.description = description;
-        this.userId = userId;
     }
 
     public UUID getId() {
@@ -31,16 +29,5 @@ public class Post {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public UUID getUserId() {
-        return userId;
-    }
-
-    public void setUserId(UUID userId) {
-        this.userId = userId;
-    }
-
-    
-    
 
 }
