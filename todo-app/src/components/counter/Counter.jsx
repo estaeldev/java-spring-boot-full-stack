@@ -1,39 +1,37 @@
-import { useState } from 'react'
+import { useState } from "react"
 import './Counter.css'
+import { CounterButton } from "./CounterButton"
 
 export const Counter = () => {
 
     const [count, setCount] = useState(0)
-    
-    const incrementCounter = () => {
-        setCount(countOld => countOld+1)
+
+    const incrementCounter = (by) => {
+        setCount(count + by)
     }
 
-    const decrementCounter = () => {
-        if(count > 0) {
-            setCount(countOld => countOld-1)
+    const decrementCounter = (by) => {
+        if(count >= by) {
+            setCount(count - by)
         }
     }
 
     return (
-        <div className="counter">
+        <div className="container">
+
+            <CounterButton by={1} increment={incrementCounter} decrement={decrementCounter} /> 
+            <CounterButton by={2} increment={incrementCounter} decrement={decrementCounter} />
+            <CounterButton by={5} increment={incrementCounter} decrement={decrementCounter} />
             <span className="count">{count}</span>
-            <div>
-                <button 
-                    className="counterButton" 
-                    onClick={incrementCounter}
-                    >
-                +1
-                </button>
-                <button 
-                    className="counterButton" 
-                    onClick={decrementCounter}
-                    >
-                -1
-                </button>
-            </div>
+            <button 
+                className="counterButton reset" 
+                onClick={() => setCount(0)}
+                >
+            Reset
+            </button>
 
         </div>
+        
     )
 
 }
