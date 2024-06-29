@@ -16,6 +16,7 @@ export const Input = ({name, ...rest}) => {
     return (
         <div>
             <input 
+                className="form-control form-control-sm"
                 name={fieldName}
                 defaultValue={defaultValue}
                 ref={inputRef} 

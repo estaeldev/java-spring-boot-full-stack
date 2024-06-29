@@ -1,19 +1,26 @@
 import { Navigate, Route, Routes } from "react-router-dom"
+import { useAuthContext } from "../context/Context"
 import { ListTodos } from "../list_todos/ListTodos"
 import { Login } from "../login/Login"
-import { Logout } from "../logout/Logout"
 import { Welcome } from "../welcome/Welcome"
 
 export const RoutesApp = () => {
 
+    const {isAuthenticated} = useAuthContext()
+
     return (
         <Routes>
-            <Route path={"/"} element={<Login />} />
+            {isAuthenticated && (
+                <>
+                    <Route path="/home/:username" element={<Welcome />} />
+                    <Route path="/todos" element={<ListTodos />} />
+                </>
+            )}
+
             <Route path={"/login"} element={<Login />} />
-            <Route path="/home/:username" element={<Welcome />} />
-            <Route path="/todos" element={<ListTodos />} />
-            <Route path="/logout" element={<Logout />} />
+            <Route path={"/"} element={<Navigate to="/login" />} />
             <Route path="*" element={<Navigate to="/login" />} />
+
         </Routes>
     )
 
