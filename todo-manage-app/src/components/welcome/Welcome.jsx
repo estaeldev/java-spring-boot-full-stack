@@ -1,6 +1,6 @@
-import axios from "axios"
 import { useState } from "react"
 import { Link, useParams } from "react-router-dom"
+import { retrieveHelloPathVariable } from "../api/HelloWorldApiService"
 
 export const Welcome = () => {
 
@@ -8,7 +8,7 @@ export const Welcome = () => {
     const [message, setMessage] = useState(null)
 
     const handleHelloWorldRestApi = () => {
-        axios.get("http://localhost:8080/hello-world-bean")
+        retrieveHelloPathVariable(username)
             .then(result => {
                 setMessage(result.data.message)
             })

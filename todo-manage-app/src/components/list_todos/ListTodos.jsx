@@ -1,12 +1,16 @@
+import { useEffect, useState } from "react"
+import { retrieveAllTodosByUsername } from "../api/TodoApiService"
+
 export const ListTodos = () => {
 
-    const targetDate = new Date(new Date().getFullYear()+12, new Date().getMonth(), new Date().getDay())
+    const [todos, setTodos] = useState([])
 
-    const todos = [
-        {id: 1, description: "Learn AWS", done: false, targetDate: targetDate},
-        {id: 2, description: "Learn Full Stack Dev",  done: false, targetDate: targetDate},
-        {id: 3, description: "Learn DevOps",  done: false, targetDate: targetDate}
-    ]
+    useEffect(() => {
+        retrieveAllTodosByUsername("estael")
+            .then(result => setTodos(result.data))
+            .catch(error => console.log(error))
+    }, [])
+
 
     return (
         <div className="container d-flex flex-column row-gap-5 justify-content-center align-items-center">
@@ -31,7 +35,7 @@ export const ListTodos = () => {
                                 <td>{todo.id}</td>
                                 <td>{todo.description}</td>
                                 <td>{todo.done.toString()}</td>
-                                <td>{todo.targetDate.toDateString()}</td>
+                                <td>{todo.targetDate}</td>
                             </tr>
                         ))}
                     </tbody>
