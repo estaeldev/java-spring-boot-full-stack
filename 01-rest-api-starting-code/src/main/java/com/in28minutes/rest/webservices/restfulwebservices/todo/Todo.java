@@ -4,12 +4,15 @@ import java.time.LocalDate;
 
 public class Todo {
 
-	public Todo() {
-		
-	}
+	private int id;
+	private String username;
+	private String description;
+	private LocalDate targetDate;
+	private boolean done;
+
+	public Todo() {}
 	
 	public Todo(int id, String username, String description, LocalDate targetDate, boolean done) {
-		super();
 		this.id = id;
 		this.username = username;
 		this.description = description;
@@ -17,13 +20,6 @@ public class Todo {
 		this.done = done;
 	}
 
-	private int id;
-
-	private String username;
-	
-	private String description;
-	private LocalDate targetDate;
-	private boolean done;
 
 	public int getId() {
 		return id;
