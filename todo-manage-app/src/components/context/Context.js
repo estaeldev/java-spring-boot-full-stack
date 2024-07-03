@@ -5,11 +5,13 @@ const AuthContext = createContext()
 export const AuthProvider = ({children}) => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(null)
+    const [username, setUsername] = useState("")
 
     const login = useCallback((username, password) => {
 
         if(username === "estael" && password === "1234") {
             setIsAuthenticated(true)
+            setUsername(username)
             return true
         } else {
             setIsAuthenticated(false)
@@ -22,8 +24,8 @@ export const AuthProvider = ({children}) => {
     }, [])
 
     const context = useMemo(() => {
-        return {isAuthenticated, login, logout}
-    }, [isAuthenticated, login, logout])
+        return {isAuthenticated, username, login, logout}
+    }, [isAuthenticated, login, logout, username])
 
     return (
         <AuthContext.Provider value={context}>
