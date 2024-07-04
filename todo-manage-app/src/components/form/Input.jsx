@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react"
 
 export const Input = ({name, ...rest}) => {
     const inputRef = useRef(null)
-    const {fieldName, registerField, defaultValue, error} = useField(name)
+    const {fieldName, registerField, defaultValue, error, clearError} = useField(name)
 
     useEffect(() => {
         registerField({
@@ -20,9 +20,10 @@ export const Input = ({name, ...rest}) => {
                 name={fieldName}
                 defaultValue={defaultValue}
                 ref={inputRef} 
+                onChange={() => error ? clearError() : null}
                 {...rest}
             />
-            {error && ( <span>{error}</span> )}
+            {error && ( <span className="text-danger fs-6">{error}</span> )}
         </div>
     )
 
