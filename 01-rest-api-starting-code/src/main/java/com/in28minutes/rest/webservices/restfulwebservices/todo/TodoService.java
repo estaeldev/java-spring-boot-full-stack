@@ -2,6 +2,7 @@ package com.in28minutes.rest.webservices.restfulwebservices.todo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -41,9 +42,23 @@ public class TodoService {
 		return todoOpt.orElse(null);
 	}
 
-	public void updateTodo(Todo todo) {
-		deleteById(todo.getUsername(), todo.getId());
+	public Todo updateTodo(String username, int id, Todo todo) {
+		deleteById(username, id);
+		todo.setId(id);
+		todo.setUsername(username);
 		todos.add(todo);
+		return todo;
+	}
+
+	public Todo createTodo(Todo todo) {
+
+		if(Objects.nonNull(todo.getId())) {
+			return null;
+		}
+
+		todo.setId(todosCount);
+		todos.add(todo);
+		return todo;
 	}
 
 	private static int getTodoCount() {
