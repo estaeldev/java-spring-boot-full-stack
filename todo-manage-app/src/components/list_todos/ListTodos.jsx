@@ -28,6 +28,10 @@ export const ListTodos = () => {
     const updateTodo = (id) => {
         navigate(`/todos/details/${id}`)
     }
+
+    const handleNewTodo = () => {
+        navigate("/todos/details/nova")
+    }
     
     useEffect(() => {
         refreshTodos()
@@ -77,6 +81,9 @@ export const ListTodos = () => {
                     </tbody>
 
                 </table>
+                <div className="d-flex justify-content-center p-2">
+                    <button className="btn btn-success btn-sm" onClick={handleNewTodo}>Add New Todo</button>
+                </div>
             </div>
             
         </div>

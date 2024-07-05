@@ -2,7 +2,7 @@ import { Form } from "@unform/web"
 import { useEffect, useRef } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import * as Yup from "yup"
-import { retrieveTodoApi, updateTodoApi } from "../api/TodoApiService"
+import { createTodoApi, retrieveTodoApi, updateTodoApi } from "../api/TodoApiService"
 import { useAuthContext } from "../context/Context"
 import { Input } from "../form/Input"
 
@@ -27,17 +27,28 @@ export const TodoDetails = () => {
         try {
             await schema.validate(data, {abortEarly: false})
             
-            const todo = {
-                description: data.description,
-                targetDate: data.targetDate,
-                done: false
+            if(id !== "nova") {
+    
+                const todo = {
+                    description: data.description,
+                    targetDate: data.targetDate,
+                    done: false
+                }
+
+                updateTodoApi(username, id, todo)
+                .then(() => {
+                    navigate("/todos")
+                })
+
+                return
             }
 
-            updateTodoApi(username, id, todo)
+            const todo = {username, ...data}
+            
+            createTodoApi(todo)
             .then(() => {
                 navigate("/todos")
             })
-
             
         } catch (error) {
             if(error instanceof Yup.ValidationError) {
@@ -49,13 +60,16 @@ export const TodoDetails = () => {
     }
 
     useEffect(() => {
-        retrieveTodoApi(username, id)
-        .then(result => {
-            formRef.current.setData(result.data)
-            console.log(result.data)
-            console.log(formRef.current)
-        })
-        .catch(error => console.log(error))
+
+        if(id !== "nova") {
+            retrieveTodoApi(username, id)
+            .then(result => {
+                formRef.current.setData(result.data)
+            })
+            .catch(error => console.log(error))
+        }
+
+
     }, [id, username])
 
     return (
