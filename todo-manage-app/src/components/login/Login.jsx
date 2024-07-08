@@ -8,12 +8,12 @@ export const Login = () => {
     const {isAuthenticated, login} = useAuthContext()
     const navigate = useNavigate()
 
-    const handleLogin = (data) => {
+    const handleLogin = async (data) => {
 
         const username = data.username
         const password = data.password
 
-        const isLogin = login(username, password)
+        const isLogin = await login(username, password)
 
         if(isLogin) {
             navigate(`/home/${username}`)

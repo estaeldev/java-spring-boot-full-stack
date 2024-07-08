@@ -1,4 +1,6 @@
 import { createContext, useCallback, useContext, useMemo, useState } from "react"
+import { ApiClient } from "../api/ApiClient"
+import { executeBasicAuthenticationService } from "../api/HelloWorldApiService"
 
 const AuthContext = createContext()
 
@@ -7,22 +9,36 @@ export const AuthProvider = ({children}) => {
     const [isAuthenticated, setIsAuthenticated] = useState(null)
     const [username, setUsername] = useState("")
 
-    const login = useCallback((username, password) => {
+    const logout = useCallback(() => {
+        setIsAuthenticated(undefined)
+        setUsername("")
+    }, [])
 
-        if(username === "estael" && password === "1234") {
-            setIsAuthenticated(true)
-            setUsername(username)
-            return true
-        } else {
-            setIsAuthenticated(false)
+    const login = useCallback(async (username, password) => {
+
+        const token = "Basic " + window.btoa((username + ":" + password))
+
+        try {
+            const response = await executeBasicAuthenticationService(token)
+            
+            if(response.status === 200) {
+                setIsAuthenticated(true) 
+                setUsername(username)
+                ApiClient.interceptors.request.use(config => {
+                    config.headers.Authorization = token
+                    return config
+                })
+                return true
+            }
+            
+        } catch (error) {
+            logout()
             return false
         }
-    }, [])
 
-    const logout = useCallback(() => {
-        setIsAuthenticated(null)
-    }, [])
+    }, [logout])
 
+    
     const context = useMemo(() => {
         return {isAuthenticated, username, login, logout}
     }, [isAuthenticated, login, logout, username])
