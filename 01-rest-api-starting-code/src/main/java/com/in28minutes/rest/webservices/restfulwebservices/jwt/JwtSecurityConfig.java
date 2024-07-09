@@ -36,10 +36,6 @@ public class JwtSecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        
-        httpSecurity.authorizeHttpRequests(auth -> auth
-            .requestMatchers("/authenticate").permitAll()
-            .anyRequest().authenticated());
         httpSecurity.oauth2ResourceServer(auth -> auth.jwt(Customizer.withDefaults()));
         return httpSecurity.build();
     }

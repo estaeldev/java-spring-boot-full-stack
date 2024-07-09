@@ -1,5 +1,6 @@
 package com.in28minutes.rest.webservices.restfulwebservices.config;
 
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -23,6 +24,11 @@ public class SecurityConfig {
         config.setAllowCredentials(true);
         source.registerCorsConfiguration("/**", config);
 
+        http.authorizeHttpRequests(auth -> auth
+            .requestMatchers("/authenticate").permitAll()
+            .requestMatchers(PathRequest.toH2Console()).permitAll()
+            .anyRequest().authenticated());
+        
         http.csrf(AbstractHttpConfigurer::disable);
         http.cors(cors -> cors.configurationSource(source));
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
