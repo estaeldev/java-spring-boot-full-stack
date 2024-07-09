@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useMemo, useState } from "react"
 import { ApiClient } from "../api/ApiClient"
-import { executeBasicAuthenticationService } from "../api/HelloWorldApiService"
+import { authenticate } from "../api/AuthenticateApiService"
+
 
 const AuthContext = createContext()
 
@@ -16,16 +17,14 @@ export const AuthProvider = ({children}) => {
 
     const login = useCallback(async (username, password) => {
 
-        const token = "Basic " + window.btoa((username + ":" + password))
-
         try {
-            const response = await executeBasicAuthenticationService(token)
+            const response = await authenticate(username, password);
             
-            if(response.status === 200) {
+            if(response.status===200) {
                 setIsAuthenticated(true) 
                 setUsername(username)
                 ApiClient.interceptors.request.use(config => {
-                    config.headers.Authorization = token
+                    config.headers.Authorization = "Bearer " + response.data.token
                     return config
                 })
                 return true
