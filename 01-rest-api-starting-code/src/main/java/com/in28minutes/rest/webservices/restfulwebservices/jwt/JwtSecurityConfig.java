@@ -12,11 +12,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -35,7 +32,6 @@ import com.nimbusds.jose.proc.SecurityContext;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
 public class JwtSecurityConfig {
 
     @Bean
@@ -44,12 +40,7 @@ public class JwtSecurityConfig {
         httpSecurity.authorizeHttpRequests(auth -> auth
             .requestMatchers("/authenticate").permitAll()
             .anyRequest().authenticated());
-        httpSecurity.csrf(AbstractHttpConfigurer::disable);
-        httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.oauth2ResourceServer(auth -> auth.jwt(Customizer.withDefaults()));
-        httpSecurity.httpBasic(Customizer.withDefaults());
-        httpSecurity.headers(header -> header.frameOptions(Customizer.withDefaults()).disable());
-        
         return httpSecurity.build();
     }
 
@@ -63,7 +54,7 @@ public class JwtSecurityConfig {
     @Bean
     UserDetailsService userDetailsService() {
         UserDetails user = User.withUsername("estael")
-                                .password("{noop}dummy")
+                                .password("{noop}1234")
                                 .authorities("read")
                                 .roles("USER")
                                 .build();
