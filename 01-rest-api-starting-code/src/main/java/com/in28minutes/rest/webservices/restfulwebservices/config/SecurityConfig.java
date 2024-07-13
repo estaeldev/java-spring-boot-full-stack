@@ -29,6 +29,7 @@ public class SecurityConfig {
             .requestMatchers(PathRequest.toH2Console()).permitAll()
             .anyRequest().authenticated());
         
+        http.oauth2ResourceServer(auth -> auth.jwt(Customizer.withDefaults()));
         http.csrf(AbstractHttpConfigurer::disable);
         http.cors(cors -> cors.configurationSource(source));
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

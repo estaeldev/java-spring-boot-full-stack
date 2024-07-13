@@ -21,7 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TodoController {
 
-    private final TodoService todoService;
+    private final TodoJpaService todoService;
 
     @GetMapping("/{username}")
     public ResponseEntity<?> findAll(@PathVariable final String username) {
@@ -31,13 +31,13 @@ public class TodoController {
 
     @GetMapping("/{username}/{id}")
     public ResponseEntity<?> findById(@PathVariable final String username, @PathVariable final Integer id) {
-        Todo todo = this.todoService.findById(username, id);
+        Todo todo = this.todoService.findById(id);
         return ResponseEntity.status(HttpStatus.OK).body(todo);
     }
 
     @DeleteMapping("/{username}/{id}")
     public ResponseEntity<?> deleteById(@PathVariable final String username, @PathVariable final Integer id) {
-        this.todoService.deleteById(username, id);
+        this.todoService.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
     }
 
