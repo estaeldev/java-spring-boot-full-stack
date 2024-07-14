@@ -8,11 +8,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+@SuppressWarnings("rawtypes")
 class ListTest {
-
 
     @Test
     void simpleTest() {
+        
         List listMock = Mockito.mock(List.class);
         Mockito.when(listMock.size()).thenReturn(3);
 
