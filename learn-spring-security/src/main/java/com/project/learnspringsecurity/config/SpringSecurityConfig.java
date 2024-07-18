@@ -78,6 +78,7 @@ public class SpringSecurityConfig {
         http.csrf(csrf -> csrf.disable());
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.headers(header -> header.frameOptions(Customizer.withDefaults()).disable());
+        http.oauth2ResourceServer(auth -> auth.jwt(Customizer.withDefaults()));
 
         return http.build();
     }
