@@ -39,32 +39,31 @@ public class SpringSecurityConfig {
     }
 
     @Bean
-    UserDetailsService userDetailsService(DataSource dataSource) {
+    UserDetailsService userDetailsService(DataSource dataSource, PasswordEncoder passwordEncoder) {
         UserDetails user = User.builder()
             .username("estael")
-            .password("1234")
+            .password(passwordEncoder.encode("1234"))
             .roles("USER")
-            .passwordEncoder(password -> passwordEncoder().encode(password))
             .build();
         
         UserDetails admin = User.builder()
             .username("admin")
-            .password("1234")
+            .password(passwordEncoder.encode("1234"))
             .roles("ADMIN")
-            .passwordEncoder(password -> passwordEncoder().encode(password))
             .build();
         
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
         jdbcUserDetailsManager.createUser(user);
         jdbcUserDetailsManager.createUser(admin);
-
         return jdbcUserDetailsManager;
+
     }
 
     @Bean
-    AuthenticationManager authenticationManager(UserDetailsService userDetailsService) {
+    AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
         return new ProviderManager(daoAuthenticationProvider);
     }
 
@@ -72,6 +71,7 @@ public class SpringSecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(auth -> auth
             .requestMatchers(PathRequest.toH2Console()).permitAll()
+            .requestMatchers("/authenticate").permitAll()
             .anyRequest().authenticated()
         );
         http.httpBasic(Customizer.withDefaults());

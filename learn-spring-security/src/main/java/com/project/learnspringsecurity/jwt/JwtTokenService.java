@@ -26,7 +26,7 @@ public class JwtTokenService {
             .issuedAt(Instant.now())
             .expiresAt(Instant.now().plus(90, ChronoUnit.MINUTES))
             .subject(authentication.getName())
-            .claim("authorities", createScope(authentication))
+            .claim("scope", createScope(authentication))
             .build();
 
         return this.jwtEncoder.encode(JwtEncoderParameters.from(jwtClaimsSet)).getTokenValue();
