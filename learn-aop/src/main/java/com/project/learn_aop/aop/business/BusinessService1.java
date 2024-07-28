@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import org.springframework.stereotype.Service;
 
+import com.project.learn_aop.aop.aspects.annotations.TrackTime;
 import com.project.learn_aop.aop.data.DataService1;
 
 @Service
@@ -15,6 +16,7 @@ public class BusinessService1 {
         this.dataService1 = dataService1;
     }
 
+    @TrackTime
     public int calculateMax() {
         int[] data = this.dataService1.retrieveData();
         return Arrays.stream(data).max().orElse(0);
